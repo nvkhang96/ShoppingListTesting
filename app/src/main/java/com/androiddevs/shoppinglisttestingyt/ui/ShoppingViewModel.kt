@@ -45,19 +45,6 @@ class ShoppingViewModel @Inject constructor(
 
     private val _insertShoppingItemStatusChannel = Channel<Resource<ShoppingItem>>()
     val insertShoppingItemStatus = _insertShoppingItemStatusChannel.receiveAsFlow()
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(),
-            Resource.loading<ShoppingItem>(null)
-        )
-
-    fun resetInsertShoppingItemStatus() {
-        viewModelScope.launch {
-            _insertShoppingItemStatusChannel.send(
-                Resource.loading<ShoppingItem>(null)
-            )
-        }
-    }
 
     fun setCurImageUrl(url: String) {
         _currentImageUrl.update { url }

@@ -20,7 +20,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-import javax.inject.Inject
 
 @MediumTest
 @HiltAndroidTest
@@ -33,9 +32,6 @@ class ImagePickFragmentTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    @Inject
-    lateinit var fragmentFactory: ShoppingFragmentFactory
-
     @Before
     fun setup() {
         hiltRule.inject()
@@ -46,7 +42,7 @@ class ImagePickFragmentTest {
         val navController = mock(NavController::class.java)
         val imageUrl = "TEST"
         val testViewModel = ShoppingViewModel(FakeShoppingRepositoryAndroidTest())
-        launchFragmentInHiltContainer<ImagePickFragment>(fragmentFactory = fragmentFactory) {
+        launchFragmentInHiltContainer<ImagePickFragment>() {
             Navigation.setViewNavController(requireView(), navController)
             imageAdapter.images = listOf(imageUrl)
             viewModel = testViewModel

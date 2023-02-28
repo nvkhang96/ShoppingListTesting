@@ -25,9 +25,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ImagePickFragment @Inject constructor(
-    val imageAdapter: ImageAdapter
-) : Fragment(R.layout.fragment_image_pick) {
+class ImagePickFragment() : Fragment(R.layout.fragment_image_pick) {
+
+    @Inject
+    lateinit var imageAdapter: ImageAdapter
 
     lateinit var viewModel: ShoppingViewModel
 

@@ -20,9 +20,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AddShoppingItemFragment @Inject constructor(
-    val glide: RequestManager
-) : Fragment(R.layout.fragment_add_shopping_item) {
+class AddShoppingItemFragment() : Fragment(R.layout.fragment_add_shopping_item) {
+
+    @Inject
+    lateinit var glide: RequestManager
 
     lateinit var viewModel: ShoppingViewModel
 
@@ -71,16 +72,15 @@ class AddShoppingItemFragment @Inject constructor(
                             Snackbar.make(
                                 requireActivity().rootLayout,
                                 "Added Shopping Item",
-                                Snackbar.LENGTH_LONG
+                                Snackbar.LENGTH_SHORT
                             ).show()
                             findNavController().popBackStack()
-                            viewModel.resetInsertShoppingItemStatus()
                         }
                         Status.ERROR -> {
                             Snackbar.make(
                                 requireActivity().rootLayout,
                                 it.message ?: "An unknown error occurred",
-                                Snackbar.LENGTH_LONG
+                                Snackbar.LENGTH_SHORT
                             ).show()
                         }
                         Status.LOADING -> {

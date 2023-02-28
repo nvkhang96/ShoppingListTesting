@@ -24,7 +24,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-import javax.inject.Inject
 
 @MediumTest
 @HiltAndroidTest
@@ -37,9 +36,6 @@ class AddShoppingItemFragmentTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Inject
-    lateinit var fragmentFactory: ShoppingFragmentFactory
-
     @Before
     fun setup() {
         hiltRule.inject()
@@ -48,9 +44,7 @@ class AddShoppingItemFragmentTest {
     @Test
     fun clickInsertIntoDb_shoppingItemInsertedIntoDb() {
         val testViewModel = ShoppingViewModel(FakeShoppingRepositoryAndroidTest())
-        launchFragmentInHiltContainer<AddShoppingItemFragment>(
-            fragmentFactory = fragmentFactory
-        ) {
+        launchFragmentInHiltContainer<AddShoppingItemFragment>() {
             viewModel = testViewModel
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.shoppingItems.collect()
@@ -82,9 +76,7 @@ class AddShoppingItemFragmentTest {
     @Test
     fun pressBackButton_popBackStack() {
         val navController = mock(NavController::class.java)
-        launchFragmentInHiltContainer<AddShoppingItemFragment>(
-            fragmentFactory = fragmentFactory
-        ) {
+        launchFragmentInHiltContainer<AddShoppingItemFragment>() {
             Navigation.setViewNavController(requireView(), navController)
         }
 

@@ -20,10 +20,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ShoppingFragment @Inject constructor(
-    val shoppingItemAdapter: ShoppingItemAdapter,
+class ShoppingFragment constructor(
     var viewModel: ShoppingViewModel? = null
 ) : Fragment(R.layout.fragment_shopping) {
+
+    @Inject
+    lateinit var shoppingItemAdapter: ShoppingItemAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
